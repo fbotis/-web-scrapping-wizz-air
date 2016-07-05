@@ -10,7 +10,6 @@ import wz.parser.Parser;
 import wz.store.FlightStore;
 
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by florinbotis on 05/07/2016.
@@ -26,15 +25,12 @@ public class MainParser {
     @Bean
     public CommandLineRunner start(FlightStore repository) {
         return (args) -> {
-            while (true) {
-                log.info("------->BEFORE:" + repository.count());
-                Parser parser = new Parser(Paths.get(args[0]), repository);
-                parser.parse();
-                log.info("------->AFTER:" + repository.count());
+            log.info("------->BEFORE:" + repository.count());
+            Parser parser = new Parser(Paths.get(args[0]), repository);
+            parser.parse();
+            log.info("------->AFTER:" + repository.count());
 
-                log.info("Sleeping 1 hour");
-                TimeUnit.HOURS.sleep(1);
-            }
+            log.info("Sleeping 1 hour");
         };
 
     }
